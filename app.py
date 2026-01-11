@@ -13,19 +13,12 @@ async def clean_frame(file: UploadFile = File(...)):
 
     r = requests.post(
         "https://api.clipdrop.co/cleanup/v1",
-        headers={
-            "x-api-key": CLIPDROP_API_KEY
-        },
-        files={
-            "image_file": image
-        },
+        headers={"x-api-key": CLIPDROP_API_KEY},
+        files={"image_file": image},
         timeout=60
     )
 
     if r.status_code != 200:
         return {"error": "AI processing failed"}
 
-    return Response(
-        content=r.content,
-        media_type="image/png"
-    )
+    return Response(content=r.content, media_type="image/png")
